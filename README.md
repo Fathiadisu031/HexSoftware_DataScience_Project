@@ -33,7 +33,7 @@ The dataset used is `Social_Media_Addiction.csv`.
 
 - Insight 1: A strong positive correlation was observed between daily hours spent on social media and self-reported addiction scores.
 - Insight 2: High school students showed higher addiction scores than Undergrate and Graduate students."
-- **[Insight 3]:The academic performance of Certain 18-21 age bracket is affected by social media"
+- Insight 3:The academic performance of Certain 18-21 age bracket is affected by social media"
 
 
 ## Visualizations
@@ -60,4 +60,5 @@ Caption: Addiction_score vs Mental_health_score
 
 ## Contact
 
-Connect with me on LinkedIn[](https://www.linkedin.com/in/fathia-disu-4a843a31a)
+Connect with me on [LinkedIn](https://www.linkedin.com/in/fathia-disu-4a843a31a), and on [Gmail](fathiadisu031@gmail.com)
+
