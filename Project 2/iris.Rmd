@@ -1,0 +1,129 @@
+---
+title: "My Iris Analysis Report"
+author: "Fathia Disu"
+date: "2025-06-11"
+output: html_document
+---
+
+# Introduction to My Iris Analysis
+
+This report explores the famous Iris flower dataset. I will check for missing values and visualize the distribution of each feature.
+
+## 1. Load important libraries and data
+
+```{r setup_libraries, message = FALSE, warning = FALSE}
+library(ggplot2)   # For creating plots
+library(dplyr)     # For data manipulation (e.g., select_if)
+library(gridExtra) # For arranging multiple plots on one page
+library(patchwork) # For arranging multiple plots on one page
+
+data <- iris # Assignin the data to a variable name
+
+head(data) # To view the first 5 rows
+ 
+tail(data) # To view the last 5 rowa
+
+str(data) # Checking structure of the data
+
+summary(data) # Summary of the data
+
+```
+### Observation
+After loading the data, i noticed that the dataset contains 150 rows and 5 columns. The colums are divided into 3 numerical and one categorical data. The summary() output gives statistics like mean, and range for each measurements
+
+## Species Distribution
+
+```{r dist_values, message = FALSE, warning = FALSE}
+
+print(table(data$Species)) # To check distribution of species counts
+
+print(prop.table(table(iris$Species))) # To check distribution of species proportions
+```
+
+## Handling Missing values
+    
+```{r missing_values, message = FALSE, warning = FALSE}
+print(colSums(is.na(data))) # Code to check for missing values
+```
+### Observation
+The iris dataset has no missing values, the output of the code shows zero for all columns.
+
+## Univariate Analysis
+#### Species Distribution
+Using a barplot to visualise the distribution of the categorical values
+
+```{r species_dist, message = FALSE, warning = FALSE}
+ #Species distribution
+Bar_Plot <- ggplot(data, aes(x = Species)) +
+  geom_bar(fill = 'skyblue') +
+  labs(title = 'Distribution of Species', x = 'Species', y = 'count') +
+  theme_minimal()
+print(Bar_Plot)
+```
+### Observation
+from the bar plot, it shows that all the species are equally distributed, it is very bias , as all species have an equal count of 50
+
+## Histogram, to show distribution
+```{r Hist_plot, message = FALSE, warning = FALSE}
+Histograms <- function(df){
+  numeric_data <- df %>% select_if(is.numeric)
+  features <- names(numeric_data)
+  
+  plot_list <- list()
+  
+  for (i in seq_along(features)){
+    feature <- features[i]
+    p <- ggplot(df,aes_string(x = feature)) + 
+      geom_histogram(aes(y = after_stat(density)), bins = 30 , fill = 'skyblue') +
+      labs(title =paste('Distribution of ', feature), x = feature, y = 'Density') +
+      theme_minimal()
+    plot_list[[i]] <- p
+    print(p)
+  }
+  wrap_plots(plot_list, ncol = 2) # to place the plots together
+}
+Histograms(data)
+```
+
+### Observation
+From the plots, i noticed that the sepal width shouws a normal distribution, the sepal.length shows somewhat bimodal distribution, then both the petal.lenght and petal.width clearly shows bimodal which can be the distribution of 2 different flowers based on petal size.
+
+
+## Boxplots to show distribution based on species
+
+```{r Box_plot, message = FALSE, warning = FALSE}
+Box_plot <- function(df, grouping_by = 'Species'){
+  numeric_data <- df %>% select_if(is.numeric)
+  features <- names(numeric_data)
+  
+  Box_plot_list = list()
+for (i in seq_along(features)){
+  feature <- features[i]
+  p <- ggplot(df, aes_string(x = grouping_by, y = feature)) + 
+    geom_boxplot(fill = 'skyblue') + 
+    labs(title = paste('Distribution of ', feature, 'by species'), x = 'Species', y = feature) + 
+    theme_minimal()
+ Box_plot_list[[i]] <- p
+  print(p)
+  }
+ wrap_plots(Box_plot_list, ncol = 2) # to place the plots together
+}
+Box_plot(data)
+```
+### observation
+From the plots, Specie sertosa have small petals and large sepals
+
+## Overall Conclusion
+### Based on the petal meaasurements
+The  petal measurement is excellent in determining the flower species, the iris setosa have small petals, the iris versicolor have medium petals, while the iris virginica have large petals.
+
+
+### Based on the sepal meaasurements
+ The sepal measurements are not really excellent in determining the species of flower, because there is an overlap in the sepal.Width of the specie versicolor and virginica. Iris setosa have wide but short sepals.
+ 
+ 
+### Balanced specie distribution
+This means that the dataset is perfectly balanced, it reduces any bias prediction when moving to modelling.
+
+
+
