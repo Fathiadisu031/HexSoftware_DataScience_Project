@@ -27,5 +27,5 @@ I am an aspiring Data Scientist. I'm currently expanding my skills in R, python,
 
 Feel free to reach out if you have any questions or feedback!
 
-* **Gmail : **Fathiadisu031@gmail.com
+* **Gmail :** Fathiadisu031@gmail.com
 * **Disu Fathia Temitola** on **LinkedIn**
